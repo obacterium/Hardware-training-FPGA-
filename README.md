@@ -45,12 +45,12 @@ riscv-cpu/riscv-cpu.srcs/
 
 四个变体共享同一套部件模块（stages/alu/control 等），区别在于流水线控制方式与中断支持：
 
-| CPU 封装 | 文件 | 特点 | 课程评分对应 |
+| CPU 封装 | 文件 | 特点 |
 |---|---|---|---|
-| `SimpleSingleCycleRiscV` | `cores/SimpleSingleCycleRiscV.v` | 单周期、无流水 | 单周期（50） |
-| `IdealPipelineRiscV` | `cores/IdealPipelineRiscV.v` | 理想流水线（不处理冒险） | 理想流水（55） |
-| `BubblePipelineingRiscV` | `cores/BubblePipelineingRiscV.v` | 气泡式处理数据冒险 | 气泡（65） |
-| `RedirectPipelineRiscV` | `cores/RedirectPipelinengRiscV.v` | **重定向处理控制冒险 + 单级中断**（当前顶层使用） | 重定向（75）+ 单级中断（+5） |
+| `SimpleSingleCycleRiscV` | `cores/SimpleSingleCycleRiscV.v` | 单周期、无流水 |
+| `IdealPipelineRiscV` | `cores/IdealPipelineRiscV.v` | 理想流水线（不处理冒险） | 
+| `BubblePipelineingRiscV` | `cores/BubblePipelineingRiscV.v` | 气泡式处理数据冒险 | 
+| `RedirectPipelineRiscV` | `cores/RedirectPipelinengRiscV.v` | **重定向处理控制冒险 + 单级中断**（当前顶层使用） | 
 
 前三个流水变体复用同一个内核 `PipelineRiscVCore`（定义在 `cores/IdealPipelineRiscV.v` 中，参数 `ENABLE_REDIRECT` 区分气泡/重定向模式）。
 
