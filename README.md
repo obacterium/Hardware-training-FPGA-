@@ -29,16 +29,19 @@ riscv-cpu/riscv-cpu.srcs/
     │   ├── BenchmarkCCAB.mem                  # CCAB 基准测试（24 指令 + 扩展）
     │   ├── EcallTest.mem                      # ecall 显示/停机测试
     │   └── SimpleSingleCycleRiscV.mem         # 单周期冒烟测试
-    └── RiscVCPU/
-        ├── Nexys4DDRTop.v                     # ★顶层模块
-        ├── stages/                            # 五级流水段：IF/ID/EX/MEM/WB
-        ├── pipe_regs/                         # 流水线级间寄存器（IF2ID/ID2EX/EX2MEM/MEM2WB）
-        ├── alu/                               # ALU 与运算码生成（ALU/OPGenerate）
-        ├── control/                           # 控制器（ControlSignGenerate/HardwaredController）
-        ├── regfile/                           # 寄存器堆与读端口检测（RegFile/RegUse）
-        ├── forwarding/                        # 转发与 LoadUse 检测（DataWatch）
-        ├── io/                                # 分频器与数码管显示（Divider/LedDisplay）
-        └── cores/                             # 四个 CPU 变体封装
+    ├── RiscVCPU/                              # CPU 内核（顶层 + 各部件分类）
+    │   ├── Nexys4DDRTop.v                     # ★顶层模块
+    │   ├── stages/                            # 五级流水段：IF/ID/EX/MEM/WB
+    │   ├── pipe_regs/                         # 流水线级间寄存器（IF2ID/ID2EX/EX2MEM/MEM2WB）
+    │   ├── alu/                               # ALU 与运算码生成（ALU/OPGenerate）
+    │   ├── control/                           # 控制器（ControlSignGenerate/HardwaredController）
+    │   ├── regfile/                           # 寄存器堆与读端口检测（RegFile/RegUse）
+    │   ├── forwarding/                        # 转发与 LoadUse 检测（DataWatch）
+    │   ├── io/                                # 分频器与数码管显示（Divider/LedDisplay）
+    │   └── cores/                             # 四个 CPU 变体封装
+    └── peripherals/                           # 外设电路（非 CPU 架构部分）
+        └── mmio/
+            └── MMIO.v                         # MMIO 外设寄存器组（SYS_ID/按键/LED/数码管/TICK_MS/CYCLES/RNG/KEY_*）
 ```
 
 ## 3. 电路中的几个 CPU
