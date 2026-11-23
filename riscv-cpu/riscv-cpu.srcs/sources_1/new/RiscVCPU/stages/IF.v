@@ -2,7 +2,7 @@
 
 module IF #(
     parameter integer CLOCK_INTERVAL = 1_000_000,
-    parameter integer MEMORY_WORDS = 1024,
+    parameter integer MEMORY_WORDS = 4096,   // 指令 ROM 4K 字 = 16KB（外设接入扩容，见 INTERFACE.md §7）
     parameter MEM_FILE = "../../mem/InterruptTest_fixed.mem"
     )(
     input         CLK,
@@ -41,5 +41,5 @@ module IF #(
     end
 
     assign PC = program_counter;
-    assign IR = instruction_memory[program_counter[11:2]];
+    assign IR = instruction_memory[program_counter[13:2]];
 endmodule

@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module MEM #(
-    parameter integer MEMORY_WORDS = 1024
+    parameter integer MEMORY_WORDS = 8192   // 数据 RAM 8K 字 = 32KB（外设接入扩容，见 INTERFACE.md §7）
     )(
     input         cpu_clock,
     input         Go,
@@ -9,6 +9,7 @@ module MEM #(
     input  [31:0] IR,
     input  [31:0] Address,
     input  [31:0] WriteData,
+    input  [31:0] MMIO_ReadData,   // MMIO 外设读数据（内核接 MMIO 模块）
     output [31:0] ReadData
     );
 
@@ -23,7 +24,10 @@ module MEM #(
     wire [2:0]  funct3  = IR[14:12];
     wire [31:0] aligned = Address & 32'hffff_fffc;
     wire [1:0]  offset  = Address[1:0];
-    wire [31:0] mem_word = data_memory[aligned[11:2]];
+    // 地址译码（INTERFACE.md §2）：0x0000_0000~0x0000_7FFF → 数据 RAM；0xFFFF_xxxx → MMIO
+    wire        mmio_sel = (Address[31:16] == 16'hFFFF);
+    wire        ram_sel  = (Address[31:15] == 17'b0);
+    wire [31:0] mem_word = ram_sel ? data_memory[aligned[14:2]] : 32'b0;
 
     // ---------- 写数据组装（SB 字节 / SH 半字 / SW 字，读-改-写保留同字其余部分） ----------
     reg [31:0] store_word;
@@ -42,8 +46,8 @@ module MEM #(
     end
 
     always @(posedge cpu_clock) begin
-        if (Go && MemWrite)
-            data_memory[aligned[11:2]] <= store_word;
+        if (Go && MemWrite && ram_sel)
+            data_memory[aligned[14:2]] <= store_word;
     end
 
     // ---------- 读数据选择（LB/LBU/LH/LHU/LW + 符号/零扩展） ----------
@@ -70,5 +74,5 @@ module MEM #(
         endcase
     end
 
-    assign ReadData = load_data;
+    assign ReadData = mmio_sel ? MMIO_ReadData : load_data;
 endmodule

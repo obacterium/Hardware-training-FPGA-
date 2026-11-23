@@ -35,13 +35,11 @@ module Nexys4DDRTop(
     ) cpu (
         .CLK(CLK), .RST(RST), .Go(Go),
         .IR1(IR1), .IR2(IR2), .IR3(IR3),
-        .DebugSel(SW[2:0]),
-        .W1(w1), .W2(w2), .W3(w3),
+        .DebugSel(SW[2:0]), .SW(SW),
+        .W1(w1), .W2(w2), .W3(w3), .LED(LED),
         .SEG(SEG), .AN(AN),
         .PC(program_counter), .IR(instruction),
         .RDin(register_write_data), .MDin(memory_write_data),
         .LedData(led_data), .RegWrite(register_write), .MemWrite(memory_write)
     );
-
-    assign LED = {w3, w2, w1, program_counter[12:0]};
 endmodule

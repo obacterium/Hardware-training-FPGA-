@@ -2,8 +2,8 @@
 # Vivado v2022.1 (64-bit)
 # SW Build 3526262 on Mon Apr 18 15:48:16 MDT 2022
 # IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
-# Start of session at: Sat Nov 21 22:15:33 2026
-# Process ID: 19672
+# Start of session at: Mon Nov 23 17:51:51 2026
+# Process ID: 20672
 # Current directory: E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.runs/synth_1
 # Command line: vivado.exe -log Nexys4DDRTop.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source Nexys4DDRTop.tcl
 # Log file: E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.runs/synth_1/Nexys4DDRTop.vds
@@ -23,9 +23,9 @@ INFO: [Designutils 20-5440] No compile time benefit to using incremental synthes
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 14960
+INFO: [Synth 8-7075] Helper process launched with PID 17284
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1934.402 ; gain = 0.000
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:08 . Memory (MB): peak = 1950.141 ; gain = 0.000
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'Nexys4DDRTop' [E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.srcs/sources_1/new/RiscVCPU/Nexys4DDRTop.v:11]
 INFO: [Synth 8-6157] synthesizing module 'RedirectPipelineRiscV' [E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.srcs/sources_1/new/RiscVCPU/cores/RedirectPipelinengRiscV.v:3]
@@ -68,6 +68,8 @@ INFO: [Synth 8-6155] done synthesizing module 'ALU' (0#1) [E:/experiments_and_re
 INFO: [Synth 8-6155] done synthesizing module 'EX' (0#1) [E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.srcs/sources_1/new/RiscVCPU/stages/EX.v:3]
 INFO: [Synth 8-6157] synthesizing module 'MEM' [E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.srcs/sources_1/new/RiscVCPU/stages/MEM.v:3]
 INFO: [Synth 8-6155] done synthesizing module 'MEM' (0#1) [E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.srcs/sources_1/new/RiscVCPU/stages/MEM.v:3]
+INFO: [Synth 8-6157] synthesizing module 'MMIO' [E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.srcs/sources_1/new/peripherals/mmio/MMIO.v:10]
+INFO: [Synth 8-6155] done synthesizing module 'MMIO' (0#1) [E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.srcs/sources_1/new/peripherals/mmio/MMIO.v:10]
 INFO: [Synth 8-6157] synthesizing module 'WB' [E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.srcs/sources_1/new/RiscVCPU/stages/WB.v:3]
 INFO: [Synth 8-6155] done synthesizing module 'WB' (0#1) [E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.srcs/sources_1/new/RiscVCPU/stages/WB.v:3]
 INFO: [Synth 8-6157] synthesizing module 'PipelinengIF2ID' [E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.srcs/sources_1/new/RiscVCPU/pipe_regs/PipelinengIF2ID.v:3]
@@ -88,6 +90,12 @@ INFO: [Synth 8-6155] done synthesizing module 'LedDisplay' (0#1) [E:/experiments
 INFO: [Synth 8-6155] done synthesizing module 'PipelineRiscVCore' (0#1) [E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.srcs/sources_1/new/RiscVCPU/cores/IdealPipelineRiscV.v:16]
 INFO: [Synth 8-6155] done synthesizing module 'RedirectPipelineRiscV' (0#1) [E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.srcs/sources_1/new/RiscVCPU/cores/RedirectPipelinengRiscV.v:3]
 INFO: [Synth 8-6155] done synthesizing module 'Nexys4DDRTop' (0#1) [E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.srcs/sources_1/new/RiscVCPU/Nexys4DDRTop.v:11]
+WARNING: [Synth 8-7129] Port Address[15] in module MMIO is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Address[14] in module MMIO is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Address[13] in module MMIO is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Address[12] in module MMIO is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Address[11] in module MMIO is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Address[10] in module MMIO is either unconnected or has no load
 WARNING: [Synth 8-7129] Port IR[31] in module MEM is either unconnected or has no load
 WARNING: [Synth 8-7129] Port IR[30] in module MEM is either unconnected or has no load
 WARNING: [Synth 8-7129] Port IR[29] in module MEM is either unconnected or has no load
@@ -117,26 +125,6 @@ WARNING: [Synth 8-7129] Port IR[3] in module MEM is either unconnected or has no
 WARNING: [Synth 8-7129] Port IR[2] in module MEM is either unconnected or has no load
 WARNING: [Synth 8-7129] Port IR[1] in module MEM is either unconnected or has no load
 WARNING: [Synth 8-7129] Port IR[0] in module MEM is either unconnected or has no load
-WARNING: [Synth 8-7129] Port Address[31] in module MEM is either unconnected or has no load
-WARNING: [Synth 8-7129] Port Address[30] in module MEM is either unconnected or has no load
-WARNING: [Synth 8-7129] Port Address[29] in module MEM is either unconnected or has no load
-WARNING: [Synth 8-7129] Port Address[28] in module MEM is either unconnected or has no load
-WARNING: [Synth 8-7129] Port Address[27] in module MEM is either unconnected or has no load
-WARNING: [Synth 8-7129] Port Address[26] in module MEM is either unconnected or has no load
-WARNING: [Synth 8-7129] Port Address[25] in module MEM is either unconnected or has no load
-WARNING: [Synth 8-7129] Port Address[24] in module MEM is either unconnected or has no load
-WARNING: [Synth 8-7129] Port Address[23] in module MEM is either unconnected or has no load
-WARNING: [Synth 8-7129] Port Address[22] in module MEM is either unconnected or has no load
-WARNING: [Synth 8-7129] Port Address[21] in module MEM is either unconnected or has no load
-WARNING: [Synth 8-7129] Port Address[20] in module MEM is either unconnected or has no load
-WARNING: [Synth 8-7129] Port Address[19] in module MEM is either unconnected or has no load
-WARNING: [Synth 8-7129] Port Address[18] in module MEM is either unconnected or has no load
-WARNING: [Synth 8-7129] Port Address[17] in module MEM is either unconnected or has no load
-WARNING: [Synth 8-7129] Port Address[16] in module MEM is either unconnected or has no load
-WARNING: [Synth 8-7129] Port Address[15] in module MEM is either unconnected or has no load
-WARNING: [Synth 8-7129] Port Address[14] in module MEM is either unconnected or has no load
-WARNING: [Synth 8-7129] Port Address[13] in module MEM is either unconnected or has no load
-WARNING: [Synth 8-7129] Port Address[12] in module MEM is either unconnected or has no load
 WARNING: [Synth 8-7129] Port IR[24] in module EX is either unconnected or has no load
 WARNING: [Synth 8-7129] Port IR[23] in module EX is either unconnected or has no load
 WARNING: [Synth 8-7129] Port IR[22] in module EX is either unconnected or has no load
@@ -188,20 +176,34 @@ WARNING: [Synth 8-7129] Port IR[8] in module ALU_OPGenerate is either unconnecte
 WARNING: [Synth 8-7129] Port IR[7] in module ALU_OPGenerate is either unconnected or has no load
 WARNING: [Synth 8-7129] Port IR[1] in module ALU_OPGenerate is either unconnected or has no load
 WARNING: [Synth 8-7129] Port IR[0] in module ALU_OPGenerate is either unconnected or has no load
+WARNING: [Synth 8-7129] Port PC[31] in module ID is either unconnected or has no load
+WARNING: [Synth 8-7129] Port PC[30] in module ID is either unconnected or has no load
+WARNING: [Synth 8-7129] Port PC[29] in module ID is either unconnected or has no load
+WARNING: [Synth 8-7129] Port PC[28] in module ID is either unconnected or has no load
+WARNING: [Synth 8-7129] Port PC[27] in module ID is either unconnected or has no load
+WARNING: [Synth 8-7129] Port PC[26] in module ID is either unconnected or has no load
+WARNING: [Synth 8-7129] Port PC[25] in module ID is either unconnected or has no load
+WARNING: [Synth 8-7129] Port PC[24] in module ID is either unconnected or has no load
+WARNING: [Synth 8-7129] Port PC[23] in module ID is either unconnected or has no load
+WARNING: [Synth 8-7129] Port PC[22] in module ID is either unconnected or has no load
+WARNING: [Synth 8-7129] Port PC[21] in module ID is either unconnected or has no load
+WARNING: [Synth 8-7129] Port PC[20] in module ID is either unconnected or has no load
+WARNING: [Synth 8-7129] Port PC[19] in module ID is either unconnected or has no load
+WARNING: [Synth 8-7129] Port PC[18] in module ID is either unconnected or has no load
 INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:07 . Memory (MB): peak = 1973.121 ; gain = 38.719
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:11 . Memory (MB): peak = 1977.633 ; gain = 27.492
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:07 . Memory (MB): peak = 1973.121 ; gain = 38.719
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:12 . Memory (MB): peak = 1995.562 ; gain = 45.422
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:07 . Memory (MB): peak = 1973.121 ; gain = 38.719
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:12 . Memory (MB): peak = 1995.562 ; gain = 45.422
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.038 . Memory (MB): peak = 1973.121 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.043 . Memory (MB): peak = 1995.562 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -212,31 +214,31 @@ INFO: [Project 1-236] Implementation specific constraints were found while readi
 Resolution: To avoid this warning, move constraints listed in [.Xil/Nexys4DDRTop_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 2040.613 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2108.340 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.018 . Memory (MB): peak = 2040.613 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.022 . Memory (MB): peak = 2108.340 ; gain = 0.000
 INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:10 ; elapsed = 00:00:14 . Memory (MB): peak = 2040.613 ; gain = 106.211
+Finished Constraint Validation : Time (s): cpu = 00:00:12 ; elapsed = 00:00:19 . Memory (MB): peak = 2108.340 ; gain = 158.199
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100tcsg324-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:10 ; elapsed = 00:00:14 . Memory (MB): peak = 2040.613 ; gain = 106.211
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:12 ; elapsed = 00:00:19 . Memory (MB): peak = 2108.340 ; gain = 158.199
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:11 ; elapsed = 00:00:14 . Memory (MB): peak = 2040.613 ; gain = 106.211
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:12 ; elapsed = 00:00:20 . Memory (MB): peak = 2108.340 ; gain = 158.199
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:11 ; elapsed = 00:00:16 . Memory (MB): peak = 2040.613 ; gain = 106.211
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:21 . Memory (MB): peak = 2108.340 ; gain = 158.199
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -246,41 +248,48 @@ Detailed RTL Component Info :
 	   2 Input   64 Bit       Adders := 1     
 	   2 Input   32 Bit       Adders := 8     
 	   3 Input   32 Bit       Adders := 1     
+	   2 Input   17 Bit       Adders := 1     
 	   2 Input    3 Bit       Adders := 1     
 +---XORs : 
 	   2 Input     32 Bit         XORs := 1     
+	   4 Input      1 Bit         XORs := 1     
 +---Registers : 
-	               32 Bit    Registers := 58    
-	               10 Bit    Registers := 4     
+	               32 Bit    Registers := 60    
+	               17 Bit    Registers := 1     
+	               16 Bit    Registers := 1     
+	               12 Bit    Registers := 1     
+	               10 Bit    Registers := 3     
 	                5 Bit    Registers := 3     
 	                4 Bit    Registers := 1     
 	                3 Bit    Registers := 2     
 	                2 Bit    Registers := 3     
 	                1 Bit    Registers := 31    
 +---RAMs : 
-	              32K Bit	(1024 X 32 bit)          RAMs := 1     
+	             256K Bit	(8192 X 32 bit)          RAMs := 1     
 +---ROMs : 
 	                    ROMs := 1     
 +---Muxes : 
-	   2 Input   32 Bit        Muxes := 16    
+	   2 Input   32 Bit        Muxes := 21    
 	  33 Input   32 Bit        Muxes := 2     
 	  14 Input   32 Bit        Muxes := 1     
+	   4 Input   32 Bit        Muxes := 5     
 	   7 Input   32 Bit        Muxes := 1     
-	   4 Input   32 Bit        Muxes := 3     
-	   5 Input   32 Bit        Muxes := 1     
-	   2 Input   16 Bit        Muxes := 1     
+	   2 Input   17 Bit        Muxes := 1     
+	   2 Input   16 Bit        Muxes := 2     
 	   2 Input   10 Bit        Muxes := 1     
 	   2 Input    9 Bit        Muxes := 1     
 	   4 Input    8 Bit        Muxes := 1     
 	   2 Input    5 Bit        Muxes := 2     
 	  41 Input    4 Bit        Muxes := 1     
 	   8 Input    4 Bit        Muxes := 1     
+	  11 Input    3 Bit        Muxes := 1     
 	   2 Input    3 Bit        Muxes := 4     
 	   4 Input    3 Bit        Muxes := 2     
 	   2 Input    2 Bit        Muxes := 6     
 	   3 Input    2 Bit        Muxes := 1     
 	  44 Input    1 Bit        Muxes := 14    
-	   2 Input    1 Bit        Muxes := 47    
+	   2 Input    1 Bit        Muxes := 49    
+	   3 Input    1 Bit        Muxes := 2     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -311,7 +320,7 @@ DSP Report: operator Result0 is absorbed into DSP Result0.
 DSP Report: operator Result0 is absorbed into DSP Result0.
 INFO: [Synth 8-6851] RAM (cpu/pipeline/memory_access/data_memory_reg) has partial Byte Wide Write Enable pattern, however no output register found in fanout of RAM. Recommended to use supported Byte Wide Write Enable template. 
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:23 ; elapsed = 00:00:28 . Memory (MB): peak = 2040.613 ; gain = 106.211
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:27 ; elapsed = 00:00:36 . Memory (MB): peak = 2108.340 ; gain = 158.199
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -321,16 +330,16 @@ ROM: Preliminary Mapping Report
 +------------+------------+---------------+----------------+
 |Module Name | RTL Object | Depth x Width | Implemented As | 
 +------------+------------+---------------+----------------+
-|IF          | sel        | 1024x29       | Block RAM      | 
+|IF          | sel        | 4096x29       | Block RAM      | 
 +------------+------------+---------------+----------------+
 
 
 Distributed RAM: Preliminary Mapping Report (see note below)
-+-------------+--------------------------------------------+-----------+----------------------+------------------+
-|Module Name  | RTL Object                                 | Inference | Size (Depth x Width) | Primitives       | 
-+-------------+--------------------------------------------+-----------+----------------------+------------------+
-|Nexys4DDRTop | cpu/pipeline/memory_access/data_memory_reg | Implied   | 1 K x 32             | RAM256X1S x 128  | 
-+-------------+--------------------------------------------+-----------+----------------------+------------------+
++-------------+--------------------------------------------+-----------+----------------------+-------------------+
+|Module Name  | RTL Object                                 | Inference | Size (Depth x Width) | Primitives        | 
++-------------+--------------------------------------------+-----------+----------------------+-------------------+
+|Nexys4DDRTop | cpu/pipeline/memory_access/data_memory_reg | Implied   | 8 K x 32             | RAM256X1S x 1024  | 
++-------------+--------------------------------------------+-----------+----------------------+-------------------+
 
 Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
 
@@ -352,24 +361,24 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:30 ; elapsed = 00:00:35 . Memory (MB): peak = 2044.055 ; gain = 109.652
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:33 ; elapsed = 00:00:43 . Memory (MB): peak = 2108.340 ; gain = 158.199
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:30 ; elapsed = 00:00:35 . Memory (MB): peak = 2068.094 ; gain = 133.691
+Finished Timing Optimization : Time (s): cpu = 00:00:39 ; elapsed = 00:00:49 . Memory (MB): peak = 2290.520 ; gain = 340.379
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 
 Distributed RAM: Final Mapping Report
-+-------------+--------------------------------------------+-----------+----------------------+------------------+
-|Module Name  | RTL Object                                 | Inference | Size (Depth x Width) | Primitives       | 
-+-------------+--------------------------------------------+-----------+----------------------+------------------+
-|Nexys4DDRTop | cpu/pipeline/memory_access/data_memory_reg | Implied   | 1 K x 32             | RAM256X1S x 128  | 
-+-------------+--------------------------------------------+-----------+----------------------+------------------+
++-------------+--------------------------------------------+-----------+----------------------+-------------------+
+|Module Name  | RTL Object                                 | Inference | Size (Depth x Width) | Primitives        | 
++-------------+--------------------------------------------+-----------+----------------------+-------------------+
+|Nexys4DDRTop | cpu/pipeline/memory_access/data_memory_reg | Implied   | 8 K x 32             | RAM256X1S x 1024  | 
++-------------+--------------------------------------------+-----------+----------------------+-------------------+
 
 ---------------------------------------------------------------------------------
 Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -378,7 +387,7 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:32 ; elapsed = 00:00:37 . Memory (MB): peak = 2125.527 ; gain = 191.125
+Finished Technology Mapping : Time (s): cpu = 00:00:41 ; elapsed = 00:00:51 . Memory (MB): peak = 2308.602 ; gain = 358.461
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -396,37 +405,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:35 ; elapsed = 00:00:40 . Memory (MB): peak = 2139.180 ; gain = 204.777
+Finished IO Insertion : Time (s): cpu = 00:00:44 ; elapsed = 00:00:54 . Memory (MB): peak = 2308.602 ; gain = 358.461
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:35 ; elapsed = 00:00:40 . Memory (MB): peak = 2139.180 ; gain = 204.777
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:44 ; elapsed = 00:00:54 . Memory (MB): peak = 2308.602 ; gain = 358.461
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:35 ; elapsed = 00:00:41 . Memory (MB): peak = 2139.180 ; gain = 204.777
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:45 ; elapsed = 00:00:55 . Memory (MB): peak = 2308.602 ; gain = 358.461
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:35 ; elapsed = 00:00:41 . Memory (MB): peak = 2139.180 ; gain = 204.777
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:45 ; elapsed = 00:00:55 . Memory (MB): peak = 2308.602 ; gain = 358.461
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:36 ; elapsed = 00:00:41 . Memory (MB): peak = 2139.223 ; gain = 204.820
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:45 ; elapsed = 00:00:55 . Memory (MB): peak = 2308.602 ; gain = 358.461
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:36 ; elapsed = 00:00:41 . Memory (MB): peak = 2139.223 ; gain = 204.820
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:45 ; elapsed = 00:00:55 . Memory (MB): peak = 2308.602 ; gain = 358.461
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -454,45 +463,45 @@ Report Cell Usage:
 |      |Cell      |Count |
 +------+----------+------+
 |1     |BUFG      |     2|
-|2     |CARRY4    |   693|
+|2     |CARRY4    |   705|
 |3     |DSP48E1   |     4|
-|5     |LUT1      |    27|
-|6     |LUT2      |   177|
-|7     |LUT3      |   623|
-|8     |LUT4      |   239|
-|9     |LUT5      |  2015|
-|10    |LUT6      |  1152|
-|11    |MUXF7     |   304|
-|12    |MUXF8     |     4|
-|13    |RAM256X1S |   128|
-|14    |RAMB36E1  |     1|
-|15    |FDRE      |  1752|
-|16    |FDSE      |     1|
-|17    |IBUF      |     9|
-|18    |OBUF      |    32|
+|5     |LUT1      |    29|
+|6     |LUT2      |   228|
+|7     |LUT3      |   617|
+|8     |LUT4      |   282|
+|9     |LUT5      |  2078|
+|10    |LUT6      |  1590|
+|11    |MUXF7     |   415|
+|12    |MUXF8     |   132|
+|13    |RAM256X1S |  1024|
+|14    |RAMB36E1  |     4|
+|18    |FDRE      |  2119|
+|19    |FDSE      |    25|
+|20    |IBUF      |    22|
+|21    |OBUF      |    32|
 +------+----------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:36 ; elapsed = 00:00:41 . Memory (MB): peak = 2139.223 ; gain = 204.820
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:45 ; elapsed = 00:00:55 . Memory (MB): peak = 2308.602 ; gain = 358.461
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 106 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:29 ; elapsed = 00:00:38 . Memory (MB): peak = 2139.223 ; gain = 137.328
-Synthesis Optimization Complete : Time (s): cpu = 00:00:36 ; elapsed = 00:00:41 . Memory (MB): peak = 2139.223 ; gain = 204.820
+Synthesis finished with 0 errors, 0 critical warnings and 79 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:37 ; elapsed = 00:00:51 . Memory (MB): peak = 2308.602 ; gain = 245.684
+Synthesis Optimization Complete : Time (s): cpu = 00:00:45 ; elapsed = 00:00:55 . Memory (MB): peak = 2308.602 ; gain = 358.461
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.058 . Memory (MB): peak = 2151.270 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 1134 Unisim elements for replacement
-INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.071 . Memory (MB): peak = 2311.441 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 2284 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 1 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 2154.938 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 2316.145 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 128 instances were transformed.
-  RAM256X1S => RAM256X1S (MUXF7(x2), MUXF8, RAMS64E(x4)): 128 instances
+  A total of 1024 instances were transformed.
+  RAM256X1S => RAM256X1S (MUXF7(x2), MUXF8, RAMS64E(x4)): 1024 instances
 
-Synth Design complete, checksum: dcd61af7
+Synth Design complete, checksum: 62ae6d50
 INFO: [Common 17-83] Releasing license: Synthesis
-70 Infos, 101 Warnings, 0 Critical Warnings and 0 Errors encountered.
+72 Infos, 101 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:40 ; elapsed = 00:00:46 . Memory (MB): peak = 2154.938 ; gain = 220.535
+synth_design: Time (s): cpu = 00:00:49 ; elapsed = 00:01:09 . Memory (MB): peak = 2316.145 ; gain = 366.004
 INFO: [Common 17-1381] The checkpoint 'E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.runs/synth_1/Nexys4DDRTop.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file Nexys4DDRTop_utilization_synth.rpt -pb Nexys4DDRTop_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Sat Nov 21 22:16:30 2026...
+INFO: [Common 17-206] Exiting Vivado at Mon Nov 23 17:53:07 2026...

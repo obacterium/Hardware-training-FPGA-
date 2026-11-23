@@ -30,9 +30,11 @@ module PipelineRiscVCore #(
     input         IR2,
     input         IR3,
     input  [2:0]  DebugSel,
+    input  [15:0] SW,             // 拨码开关（SW_BTN 寄存器 + LED 显示源选择 SW[15]）
     output        W1,
     output        W2,
     output        W3,
+    output [15:0] LED,            // SW[15]=0 调试显示(W1-3+PC) / SW[15]=1 MMIO LED 寄存器
     output [7:0]  SEG,
     output [7:0]  AN,
     output [31:0] PC,
@@ -78,6 +80,10 @@ module PipelineRiscVCore #(
     wire data_correlate;
     wire [31:0] forwarded_rs1, forwarded_rs2;
     wire [9:0] ex_control = idex_decode_ctrl;
+    wire [31:0] mmio_read_data;      // MMIO 外设读数据
+    wire [15:0] mmio_led;            // MMIO LED 寄存器
+    wire [31:0] mmio_seg7;           // MMIO SEG7 寄存器
+    reg [15:0] total_cycles, bubble_count, loaduse_count, uncond_branch, taken_branch;   // 统计计数器（提前声明供 MMIO 引用）
 
     assign id_decode_ctrl = {id_jalr, id_jal, id_beq, id_bne, id_blt,
                              1'b0, 1'b0, id_stype, id_utype, id_dasb};
@@ -192,6 +198,8 @@ module PipelineRiscVCore #(
     assign W1 = pending[0];
     assign W2 = pending[1];
     assign W3 = pending[2];
+    // LED 显示源选择：SW[15]=0 → 调试（W1-3 + PC 低13位，课程验收默认）；SW[15]=1 → MMIO LED 寄存器
+    assign LED = SW[15] ? mmio_led : {W3, W2, W1, if_pc[12:0]};
 
     // ================= 流水控制 =================
     // （redirect_control_valid / ex_en / if_en / redirect_* 等信号已在上方中断控制器之前声明）
@@ -257,7 +265,18 @@ module PipelineRiscVCore #(
     MEM memory_access (
         .cpu_clock(cpu_clock), .Go(ex_en), .MemWrite(exmem_mem_write),
         .IR(exmem_ir), .Address(exmem_alu_result),
-        .WriteData(exmem_write_data), .ReadData(mem_read_data)
+        .WriteData(exmem_write_data), .MMIO_ReadData(mmio_read_data),
+        .ReadData(mem_read_data)
+    );
+
+    // ================= MMIO 外设寄存器组（Stage 1，INTERFACE.md §3） =================
+    MMIO mmio_periph (
+        .CLK(CLK), .cpu_clock(cpu_clock), .RST(rst_synced),
+        .Go(ex_en), .MemWrite(exmem_mem_write),
+        .Address(exmem_alu_result), .WriteData(exmem_write_data),
+        .SW(SW), .BTNU(RST), .BTND(IR3), .BTNL(IR1), .BTNR(IR2), .BTNC(go_s2),
+        .Cycles(total_cycles),
+        .ReadData(mmio_read_data), .LED(mmio_led), .SEG7Reg(mmio_seg7)
     );
 
     // ================= 写回 =================
@@ -332,7 +351,6 @@ module PipelineRiscVCore #(
     assign LedData = led_latch;
 
     // ================= 统计计数器（任务书要求：周期数/气泡数/load-use数/分支数） =================
-    reg [15:0] total_cycles, bubble_count, loaduse_count, uncond_branch, taken_branch;
     wire ex_is_jal  = idex_ir[6:0] == 7'b1101111;
     wire ex_is_jalr = idex_ir[6:2] == 5'b11001;
     always @(posedge cpu_clock) begin
@@ -356,7 +374,8 @@ module PipelineRiscVCore #(
     end
 
     // ================= 数码管显示（SW[2:0] 选择：000=显示值 001=总周期数 010=气泡数
-    //                                    011=PC 100=LoadUse次数 101=无条件分支数 110=条件分支成功数） =================
+    //                                    011=PC 100=LoadUse次数 101=无条件分支数 110=条件分支成功数
+    //                                    111=MMIO SEG7 寄存器（游戏显示）） =================
     wire [31:0] display_data =
         DebugSel == 3'b000 ? LedData :
         DebugSel == 3'b001 ? {16'b0, total_cycles} :
@@ -364,7 +383,8 @@ module PipelineRiscVCore #(
         DebugSel == 3'b011 ? if_pc :
         DebugSel == 3'b100 ? {16'b0, loaduse_count} :
         DebugSel == 3'b101 ? {16'b0, uncond_branch} :
-                             {16'b0, taken_branch};
+        DebugSel == 3'b110 ? {16'b0, taken_branch} :
+                             mmio_seg7;
     LedDisplay #(.CLOCK_INTERVAL(DISPLAY_CLOCK_INTERVAL)) led_display (
         .LedData(display_data), .CLK(CLK), .SEG(SEG), .AN(AN)
     );
@@ -387,9 +407,11 @@ module IdealPipelineRiscV #(
     input         IR2,
     input         IR3,
     input  [2:0]  DebugSel,
+    input  [15:0] SW,
     output        W1,
     output        W2,
     output        W3,
+    output [15:0] LED,
     output [7:0]  SEG,
     output [7:0]  AN,
     output [31:0] PC,
@@ -410,7 +432,7 @@ module IdealPipelineRiscV #(
         .MEM_FILE(MEM_FILE)
     ) core (
         .CLK(CLK), .RST(RST), .Go(Go), .IR1(IR1), .IR2(IR2), .IR3(IR3),
-        .DebugSel(DebugSel), .W1(W1), .W2(W2), .W3(W3),
+        .DebugSel(DebugSel), .SW(SW), .W1(W1), .W2(W2), .W3(W3), .LED(LED),
         .SEG(SEG), .AN(AN), .PC(PC), .IR(IR),
         .RDin(RDin), .MDin(MDin), .LedData(LedData),
         .RegWrite(RegWrite), .MemWrite(MemWrite)

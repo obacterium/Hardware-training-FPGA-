@@ -37,9 +37,11 @@ module PipeliningTestbench;
     reg         Go  = 1'b0;
     reg         IR1 = 1'b0, IR2 = 1'b0, IR3 = 1'b0;
     reg  [2:0]  DebugSel = 3'b000;
+    reg  [15:0] SW = 16'b0;                // SW[15]=0 调试 LED；=1 MMIO LED 寄存器
 
     // ---------- DUT 输出 ----------
     wire        W1, W2, W3;
+    wire [15:0] LED;
     wire [7:0]  SEG, AN;
     wire [31:0] PC, IR, RDin, MDin, LedData;
     wire        RegWrite, MemWrite;
@@ -58,8 +60,8 @@ module PipeliningTestbench;
     ) dut (
         .CLK(CLK), .RST(RST), .Go(Go),
         .IR1(IR1), .IR2(IR2), .IR3(IR3),
-        .DebugSel(DebugSel),
-        .W1(W1), .W2(W2), .W3(W3),
+        .DebugSel(DebugSel), .SW(SW),
+        .W1(W1), .W2(W2), .W3(W3), .LED(LED),
         .SEG(SEG), .AN(AN),
         .PC(PC), .IR(IR),
         .RDin(RDin), .MDin(MDin),

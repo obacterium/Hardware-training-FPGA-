@@ -70,7 +70,6 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_param chipscope.maxJobs 3
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a100tcsg324-1
 
@@ -97,6 +96,7 @@ read_verilog -library xil_defaultlib {
   E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.srcs/sources_1/new/RiscVCPU/cores/IdealPipelineRiscV.v
   E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.srcs/sources_1/new/RiscVCPU/io/LedDisplay.v
   E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.srcs/sources_1/new/RiscVCPU/stages/MEM.v
+  E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.srcs/sources_1/new/peripherals/mmio/MMIO.v
   E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.srcs/sources_1/new/RiscVCPU/alu/OPGenerate.v
   E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.srcs/sources_1/new/RiscVCPU/pipe_regs/PipelinengEX2MEM.v
   E:/experiments_and_reports/hardware_training/verilog/riscv-cpu/riscv-cpu.srcs/sources_1/new/RiscVCPU/pipe_regs/PipelinengID2EX.v

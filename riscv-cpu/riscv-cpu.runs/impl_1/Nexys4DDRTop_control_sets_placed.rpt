@@ -1,0 +1,259 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (win64) Build 3526262 Mon Apr 18 15:48:16 MDT 2022
+| Date         : Mon Nov 23 17:54:05 2026
+| Host         : DESKTOP-VFKPMMA running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file Nexys4DDRTop_control_sets_placed.rpt
+| Design       : Nexys4DDRTop
+| Device       : xc7a100t
+-----------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |   181 |
+|    Minimum number of control sets                        |   181 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |    40 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |   181 |
+| >= 0 to < 4        |     1 |
+| >= 4 to < 6        |     1 |
+| >= 6 to < 8        |     1 |
+| >= 8 to < 10       |     0 |
+| >= 10 to < 12      |     0 |
+| >= 12 to < 14      |     0 |
+| >= 14 to < 16      |     1 |
+| >= 16              |   177 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |              23 |           11 |
+| No           | No                    | Yes                    |               0 |            0 |
+| No           | Yes                   | No                     |             115 |           35 |
+| Yes          | No                    | No                     |              23 |            6 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |            1983 |          991 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++-----------------------------------------------+--------------------------------------------------------+-----------------------------------------------------+------------------+----------------+--------------+
+|                  Clock Signal                 |                      Enable Signal                     |                   Set/Reset Signal                  | Slice Load Count | Bel Load Count | Bels / Slice |
++-----------------------------------------------+--------------------------------------------------------+-----------------------------------------------------+------------------+----------------+--------------+
+|  cpu/pipeline/led_display/display_divider/CLK |                                                        |                                                     |                1 |              3 |         3.00 |
+|  pipeline/cpu_clock                           |                                                        | cpu/pipeline/rst_s2                                 |                2 |              4 |         2.00 |
+|  pipeline/cpu_clock                           |                                                        |                                                     |                2 |              6 |         3.00 |
+|  CLK_IBUF_BUFG                                |                                                        |                                                     |                8 |             14 |         1.75 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[3]_rep__30_1[0] | cpu/pipeline/rst_s2                                 |                8 |             16 |         2.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/id_ex/halt_ff_reg_inv_2                   | cpu/pipeline/rst_s2                                 |                4 |             16 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/id_ex/halt_ff_reg_inv_4                   | cpu/pipeline/rst_s2                                 |                4 |             16 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/id_ex/uncond_branch                       | cpu/pipeline/rst_s2                                 |                4 |             16 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/id_ex/taken_branch                        | cpu/pipeline/rst_s2                                 |                4 |             16 |         4.00 |
+|  CLK_IBUF_BUFG                                | cpu/pipeline/por_active                                |                                                     |                6 |             23 |         3.83 |
+|  CLK_IBUF_BUFG                                |                                                        | cpu/pipeline/led_display/display_divider/DividedCLK |                8 |             31 |         3.88 |
+|  CLK_IBUF_BUFG                                |                                                        | cpu/pipeline/instruction_fetch/divider/DividedCLK   |                8 |             31 |         3.88 |
+|  pipeline/cpu_clock                           | cpu/pipeline/id_ex/E[0]                                | cpu/pipeline/rst_s2                                 |               13 |             31 |         2.38 |
+|  pipeline/cpu_clock                           | cpu/pipeline/id_ex/if_en                               | cpu/pipeline/id_ex/pc_reg                           |               13 |             31 |         2.38 |
+|  pipeline/cpu_clock                           | cpu/pipeline/id_ex/if_en                               | cpu/pipeline/rst_s2                                 |               16 |             31 |         1.94 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/E[0]                               | cpu/pipeline/rst_s2                                 |               14 |             32 |         2.29 |
+|  CLK_IBUF_BUFG                                | cpu/pipeline/mmio_periph/tick_ms                       | cpu/pipeline/rst_s2                                 |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/E[0]                               | cpu/pipeline/rst_s2                                 |               19 |             32 |         1.68 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[0]_0[0]          | cpu/pipeline/rst_s2                                 |               17 |             32 |         1.88 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[0]_3[0]          | cpu/pipeline/rst_s2                                 |               14 |             32 |         2.29 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[3]_5[0]          | cpu/pipeline/rst_s2                                 |               15 |             32 |         2.13 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[0]_6[0]          | cpu/pipeline/rst_s2                                 |               17 |             32 |         1.88 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[0]_7[0]          | cpu/pipeline/rst_s2                                 |               18 |             32 |         1.78 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[4]_0[0]          | cpu/pipeline/rst_s2                                 |               22 |             32 |         1.45 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[3]_1[0]          | cpu/pipeline/rst_s2                                 |               17 |             32 |         1.88 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[1]_2[0]          | cpu/pipeline/rst_s2                                 |               20 |             32 |         1.60 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[1]_3[0]          | cpu/pipeline/rst_s2                                 |               16 |             32 |         2.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[0]_5[0]          | cpu/pipeline/rst_s2                                 |               15 |             32 |         2.13 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[0]_2[0]          | cpu/pipeline/rst_s2                                 |               26 |             32 |         1.23 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[3]_0[0]          | cpu/pipeline/rst_s2                                 |               26 |             32 |         1.23 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[1]_1[0]          | cpu/pipeline/rst_s2                                 |               17 |             32 |         1.88 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[1]_0[0]          | cpu/pipeline/rst_s2                                 |               12 |             32 |         2.67 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[1]_10[0]         | cpu/pipeline/rst_s2                                 |               17 |             32 |         1.88 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[1]_9[0]          | cpu/pipeline/rst_s2                                 |               12 |             32 |         2.67 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[1]_7[0]          | cpu/pipeline/rst_s2                                 |               17 |             32 |         1.88 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[1]_11[0]         | cpu/pipeline/rst_s2                                 |               18 |             32 |         1.78 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[1]_4[0]          | cpu/pipeline/rst_s2                                 |               21 |             32 |         1.52 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[0]_1[0]          | cpu/pipeline/rst_s2                                 |               25 |             32 |         1.28 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[2]_0[0]          | cpu/pipeline/rst_s2                                 |               22 |             32 |         1.45 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[3]_3[0]          | cpu/pipeline/rst_s2                                 |               15 |             32 |         2.13 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[0]_4[0]          | cpu/pipeline/rst_s2                                 |               18 |             32 |         1.78 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[1]_5[0]          | cpu/pipeline/rst_s2                                 |               16 |             32 |         2.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[1]_6[0]          | cpu/pipeline/rst_s2                                 |               17 |             32 |         1.88 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[1]_8[0]          | cpu/pipeline/rst_s2                                 |               12 |             32 |         2.67 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[2]_1[0]          | cpu/pipeline/rst_s2                                 |               19 |             32 |         1.68 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[2]_2[0]          | cpu/pipeline/rst_s2                                 |               12 |             32 |         2.67 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[3]_2[0]          | cpu/pipeline/rst_s2                                 |               17 |             32 |         1.88 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_13          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/mem_wb/write_reg_reg_reg[3]_4[0]          | cpu/pipeline/rst_s2                                 |               18 |             32 |         1.78 |
+|  pipeline/cpu_clock                           | cpu/pipeline/id_ex/halt_ff_reg_inv[0]                  | cpu/pipeline/rst_s2                                 |               14 |             32 |         2.29 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_rep_1       |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_rep__0_3    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_rep__1_6    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_1           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep_6       |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_rep_3       |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_rep__0_4    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_5           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_0           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_3           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_4           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_rep_2       |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep_4       |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep_5       |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_rep_5       |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_rep__0_6    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_rep_4       |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep__0_2    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep__0_7    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep__1_1    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep_7       |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_rep_6       |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_rep__1_2    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_0           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep__0_1    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep__0_8    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep__1_2    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep__1_3    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_2           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_1           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_rep__1_1    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_4           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep_1       |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_7           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_rep__0_2    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_6           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep_2       |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep_8       |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep__0_3    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep__1_4    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep__0_4    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_3           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_rep__1_5    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_rep__0_1    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_5           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_rep__1_3    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep_3       |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_rep__0_5    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[10]_rep__1_4    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_2           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep__0_5    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep__0_6    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_17          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_8           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_1           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_17          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep__1_8    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_1           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_18          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_20          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_2           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_25          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_27          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_9           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep__1_7    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_12          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_10          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_14          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_19          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_2           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_20          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_21          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_22          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_16          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_23          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_3           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_18          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep__1_5    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_21          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[11]_rep__1_6    |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_16          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_22          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_24          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_30          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_4           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_5           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_4           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_5           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_6           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_7           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_10          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_28          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_23          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_7           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_8           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_9           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[14]_1           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[14]_10          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[14]_11          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_11          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_12          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_15          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_29          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_3           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_31          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_14          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_6           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_11          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_15          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_0           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_26          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_19          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[12]_13          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[13]_0           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[14]_7           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[14]_15          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[14]_4           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[14]_14          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[14]_9           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[14]_16          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[14]_12          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[14]_13          |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[14]_6           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[14]_3           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[14]_2           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[14]_5           |                                                     |                8 |             32 |         4.00 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_mem/alu_result_reg_reg[14]_8           |                                                     |                8 |             32 |         4.00 |
+|  CLK_IBUF_BUFG                                |                                                        | cpu/pipeline/rst_s2                                 |               17 |             49 |         2.88 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_en0                                    | cpu/pipeline/id_ex/rs2_fwd_reg                      |               90 |            147 |         1.63 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_en0                                    | cpu/pipeline/rst_s2                                 |               74 |            164 |         2.22 |
+|  pipeline/cpu_clock                           | cpu/pipeline/ex_en0                                    | cpu/pipeline/id_ex/decode_ctrl_reg                  |              178 |            411 |         2.31 |
++-----------------------------------------------+--------------------------------------------------------+-----------------------------------------------------+------------------+----------------+--------------+
+
+

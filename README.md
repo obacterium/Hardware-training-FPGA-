@@ -163,6 +163,8 @@ riscv-cpu/riscv-cpu.srcs/
 | `LED[12:0]` | 当前 PC 的低 13 位 |
 | `SW[2:0]` | 数码管调试显示选择（下表） |
 
+> **LED 显示源选择（SW[15]）**：`SW[15]=0`（默认）→ 上面的调试显示（W1-3 + PC），课程验收保持原样；`SW[15]=1` → **MMIO LED 寄存器**（`0xFFFF_0008`，游戏软件控制 16 个 LED 用）。
+
 | SW[2:0] | 数码管显示内容 |
 |---|---|
 | `000` | ecall 锁存显示值 LedData（默认，看程序输出用这个） |
@@ -172,6 +174,7 @@ riscv-cpu/riscv-cpu.srcs/
 | `100` | LoadUse 冲突次数 |
 | `101` | 无条件分支数（JAL/JALR） |
 | `110` | 条件分支成功数 |
+| `111` | **MMIO SEG7 寄存器**（`0xFFFF_000C`，游戏里显示分数/等级用） |
 
 ### 7.4 更换测试程序
 
@@ -185,3 +188,9 @@ riscv-cpu/riscv-cpu.srcs/
 
 - 测试台：`sim_1/new/PipeliningTestbench.sv`，逐周期打印 PC/IR/各段控制信号/中断事件，并自动模拟 Go 按键；
 - 可在 Vivado 中直接运行行为仿真，或使用 xvlog/xelab/xsim 命令行流程（源文件按 `RiscVCPU/` 目录树递归编译）。
+
+## 8. 给 AI 助手的说明
+
+🤖 使用 AI 助手（DeepSeek、ChatGPT、Codex、Cursor、Claude Code 等）协助本工程时，请先让助手阅读并遵守 **[`AGENTS.md`](./AGENTS.md)**（规范包括：新对话开始的必读清单、临时文件不得污染工程目录、不自行运行 Vivado 综合/实现流程、对话开始的行为提醒、规范变更的即时同步等）。
+
+外设接入相关的接口约定（MMIO 地址表、显存格式、键盘队列、IO 缓冲区）统一见 **[`INTERFACE.md`](./INTERFACE.md)**，硬件组与软件组都以其为唯一接口依据。

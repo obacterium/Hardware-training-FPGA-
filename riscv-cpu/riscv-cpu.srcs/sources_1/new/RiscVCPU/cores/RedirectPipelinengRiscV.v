@@ -16,9 +16,11 @@ module RedirectPipelineRiscV #(
     input         IR2,
     input         IR3,
     input  [2:0]  DebugSel,
+    input  [15:0] SW,
     output        W1,
     output        W2,
     output        W3,
+    output [15:0] LED,
     output [7:0]  SEG,
     output [7:0]  AN,
     output [31:0] PC,
@@ -39,7 +41,7 @@ module RedirectPipelineRiscV #(
         .MEM_FILE(MEM_FILE)
     ) pipeline (
         .CLK(CLK), .RST(RST), .Go(Go), .IR1(IR1), .IR2(IR2), .IR3(IR3),
-        .DebugSel(DebugSel), .W1(W1), .W2(W2), .W3(W3),
+        .DebugSel(DebugSel), .SW(SW), .W1(W1), .W2(W2), .W3(W3), .LED(LED),
         .SEG(SEG), .AN(AN), .PC(PC), .IR(IR),
         .RDin(RDin), .MDin(MDin), .LedData(LedData),
         .RegWrite(RegWrite), .MemWrite(MemWrite)

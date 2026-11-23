@@ -9,8 +9,10 @@ module SimpleSingleCycleRiscV #(
     input         CLK,
     input         RST,
     input         Go,
+    input  [15:0] SW,             // 拨码开关（SW_BTN 寄存器）
     output [7:0]  SEG,
     output [7:0]  AN,
+    output [15:0] LED,            // MMIO LED 寄存器
     output [31:0] PC,
     output [31:0] IR,
     output [31:0] RDin,
@@ -33,6 +35,8 @@ module SimpleSingleCycleRiscV #(
     wire [4:0] wb_reg;
     wire wb_reg_write;
     wire ecall_display, ecall_halt;
+    wire [31:0] mmio_read_data;
+    wire [15:0] mmio_led;
 
     // ---------- 复位（上电自动复位 POR + 按键复位）与运行控制（复位后自动运行；ecall 停机→halt；Go 按下→继续） ----------
     reg [31:0] por_cnt = 32'b0;   // 初始化防止仿真 X 态（硬件 FF 上电亦为 0）
@@ -90,7 +94,17 @@ module SimpleSingleCycleRiscV #(
     MEM memory_access (
         .cpu_clock(cpu_clock), .Go(run_en), .MemWrite(mem_write),
         .IR(ir_value), .Address(alu_result),
-        .WriteData(store_data), .ReadData(memory_data)
+        .WriteData(store_data), .MMIO_ReadData(mmio_read_data),
+        .ReadData(memory_data)
+    );
+
+    MMIO mmio_periph (
+        .CLK(CLK), .cpu_clock(cpu_clock), .RST(rst_synced),
+        .Go(run_en), .MemWrite(mem_write),
+        .Address(alu_result), .WriteData(store_data),
+        .SW(SW), .BTNU(RST), .BTND(1'b0), .BTNL(1'b0), .BTNR(1'b0), .BTNC(Go),
+        .Cycles(16'b0),
+        .ReadData(mmio_read_data), .LED(mmio_led), .SEG7Reg()
     );
 
     WB writeback (
@@ -117,6 +131,7 @@ module SimpleSingleCycleRiscV #(
     assign MDin = store_data;
     assign RegWrite = wb_reg_write;
     assign MemWrite = mem_write;
+    assign LED = mmio_led;
 
     LedDisplay #(.CLOCK_INTERVAL(DISPLAY_CLOCK_INTERVAL)) led_display (
         .LedData(LedData), .CLK(CLK), .SEG(SEG), .AN(AN)
