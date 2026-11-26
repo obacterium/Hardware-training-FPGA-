@@ -18,6 +18,14 @@
 
 ## 2. 工程结构（RTL 源文件）
 
+游戏软件入口见 [software/tetris/README.md](software/tetris/README.md)。
+
+```
+software/tetris/
+├── README.md                     # 软件构建、RAM 布局与仿真步骤
+└── stage0/                       # RARS 与 FPGA 启动自检、ROM 导出和仿真测试台
+```
+
 ```
 riscv-cpu/riscv-cpu.srcs/
 ├── constrs_1/new/Nexys4_DDR_Master.xdc        # 引脚与时钟约束
