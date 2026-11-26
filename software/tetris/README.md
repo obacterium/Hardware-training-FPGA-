@@ -1,8 +1,32 @@
 # 俄罗斯方块软件构建与验证
 
+## 第 1 阶段 RARS 原型
+
+终端版中大写字符表示已锁定的方块，小写字符表示活动方块。输入一个命令后按 Enter。`A/D` 左右移动，`W` 旋转，`S` 软降，`H` 或空格硬降，`P` 暂停或恢复，`R` 重开，`Q` 退出。`T` 或空行让模拟时间前进 100 ms，便于逐步查看重力效果。
+
+在 `team work` 目录运行，按本机安装位置设置 `$RarsJar` 与 `$JavaExe`。
+
+```powershell
+$stage = Join-Path (Get-Location).Path 'Hardware-training-FPGA-/software/tetris/stage1'
+$RarsJar = 'D:\tools\rars.jar'
+$JavaExe = 'java'
+$sources = 'rars_play.s', 'game.s', 'tables.s' | ForEach-Object { Join-Path $stage $_ }
+& $JavaExe '-Djava.awt.headless=true' -jar $RarsJar nc ae1 se2 sm @sources
+```
+
+运行固定输入回归时，在同一个 PowerShell 会话执行以下命令。最后一条验收输出为 `PASS: all stage1 game tests`。
+
+```powershell
+& (Join-Path $stage 'test.ps1') -RarsJar $RarsJar -Java $JavaExe
+```
+
+`game_init` 接收状态区、方块表、方块序列地址、非零序列长度和初始毫秒数。方块 ID `0–6` 对应 `I/O/T/S/Z/J/L`，序列循环使用。`game_step` 接收状态区、接口约定中的逻辑键码和当前毫秒数，每次至多结算一个方块。`layout.inc` 定义棋盘和状态的偏移，棋盘中 `0` 是空格，`1–7` 是对应的已锁定方块。终端输入输出的 RARS 系统调用集中在 `rars_play.s`。
+
+## 第 0 阶段启动自检
+
 使用 RARS 汇编 RV32 程序。`stage0/ram_probe.s` 是共用的 RAM 自检，`rars_smoke.s` 是 RARS 测试入口，`fpga_smoke.s` 是从 PC=0 启动的 FPGA 入口。FPGA 版通过 MMIO LED 报告自检结果。
 
-## 构建第 0 阶段镜像
+### 构建镜像
 
 在 PowerShell 中进入 `team work` 目录，将示例中的 RARS 和 Vivado 路径设为本机实际位置。`$JavaExe` 也可填写 `java.exe` 的绝对路径。
 
@@ -22,7 +46,7 @@ New-Item -ItemType Directory -Path $runDir -Force | Out-Null
 
 构建先运行 RARS 自检，要求控制台输出 `PASS: stage0 RAM probe` 并以状态 0 结束。随后用 `CompactTextAtZero` 导出 FPGA `.text`，每行一个 32 位十六进制指令字。当前内核以 4096 个字为上限，镜像首字 `00008137` 对应 `lui sp, 0x8`。脚本输出指令字数和 SHA-256，可用两次构建的哈希检查一致性。
 
-## 运行独立 RTL 仿真
+### 运行独立 RTL 仿真
 
 沿用上一步的 PowerShell 变量。在 `$runDir` 载入 `stage0.mem`，使用现有的重定向流水线内核做行为仿真。
 
