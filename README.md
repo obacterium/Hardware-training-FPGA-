@@ -24,7 +24,9 @@
 software/tetris/
 ├── README.md                     # 软件构建、RAM 布局与仿真步骤
 ├── stage0/                       # RARS 与 FPGA 启动自检、ROM 导出和仿真测试台
-└── stage1/                       # 游戏核心、RARS 终端原型和固定输入回归
+├── stage1/                       # 游戏核心、RARS 终端原型和固定输入回归
+├── stage2/                       # MMIO、PS/2、字符显存驱动和独立自检入口
+└── stage3/                       # 游戏固件、构建入口和 CPU RTL 联调测试台
 ```
 
 ```

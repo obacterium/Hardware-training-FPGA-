@@ -1,6 +1,7 @@
 .include "layout.inc"
 .text
 .globl game_init
+.globl game_init_source
 .globl game_step
 .globl game_cells
 
@@ -10,7 +11,18 @@ game_init:
     sw a1, G_TABLES(a0)
     sw a2, G_SEQUENCE(a0)
     sw a3, G_SEQUENCE_LEN(a0)
+    sw zero, G_SOURCE(a0)
     mv a1, a4
+    j game_restart
+
+# game_init_source(state, tables, piece_callback, now_ms).
+# The callback receives state and returns a piece ID 0..6.
+game_init_source:
+    sw a1, G_TABLES(a0)
+    sw a2, G_SOURCE(a0)
+    sw zero, G_SEQUENCE(a0)
+    sw zero, G_SEQUENCE_LEN(a0)
+    mv a1, a3
     j game_restart
 
 # game_restart(state, now_ms)
@@ -206,6 +218,8 @@ game_spawn:
     addi sp, sp, -16
     sw ra, 12(sp)
     sw a0, 0(sp)
+    lw t0, G_SOURCE(a0)
+    bnez t0, game_spawn_source
     lw t0, G_SEQUENCE_INDEX(a0)
     lw t1, G_SEQUENCE(a0)
     add t1, t1, t0
@@ -217,6 +231,13 @@ game_spawn:
     li t0, 0
 game_spawn_set_index:
     sw t0, G_SEQUENCE_INDEX(a0)
+    j game_spawn_pose
+game_spawn_source:
+    jalr ra, 0(t0)
+    mv t0, a0
+    lw a0, 0(sp)
+    sw t0, G_PIECE(a0)
+game_spawn_pose:
     li t0, 3
     sw t0, G_X(a0)
     sw zero, G_Y(a0)

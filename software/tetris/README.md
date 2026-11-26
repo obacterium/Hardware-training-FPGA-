@@ -1,5 +1,71 @@
 # 俄罗斯方块软件构建与验证
 
+## 第 2 至 3 阶段 FPGA 镜像
+
+从 `team work` 目录运行。使用课程 RARS JAR 和本机 Java。构建器在 RARS 默认配置中汇编 `.text`，取出的首指令字装入 FPGA 的 PC=0。分支与调用使用相对位移，RAM 和 MMIO 使用显式地址。上电代码逐字初始化方块、颜色和文字表，当前指令 ROM 上限为 4096 字。
+
+```powershell
+$teamDir = (Get-Location).Path
+$repo = Join-Path $teamDir 'Hardware-training-FPGA-'
+$firmware = Join-Path $repo 'software/tetris/stage3'
+$runDir = Join-Path $teamDir 'stage23-run'
+$RarsJar = 'D:\tools\rars.jar'
+$JavaExe = 'java'
+$VivadoBin = 'D:\Xilinx\Vivado\2022.1\bin'
+
+New-Item -ItemType Directory -Path $runDir -Force | Out-Null
+& (Join-Path $firmware 'build.ps1') -RarsJar $RarsJar -Java $JavaExe -OutputDirectory $runDir
+```
+
+| 镜像 | 上板后依次核对的现象 |
+| --- | --- |
+| `diag_mmio.mem` | `SW[15]=1` 时 LED 镜像拨码。`SW[2:0]=111` 选 MMIO 数码管，`SW[14]=0` 显示 `12345678`，切为 1 显示递增的 `TICK_MS` 十六进制值。 |
+| `diag_vga.mem` | LED `0202`。VGA 首格为白色 A，第二格为黄色 C。首行最末和第二行最左分别为红、绿方块，最右下为紫色 Z。 |
+| `diag_key.mem` | LED `0203`。屏幕第 2 行打印原始十六进制字节，第 3 行相同位置打印逻辑键号。按下左键出现 `E0 6B` 和 `01`，松开出现 `E0 F0 6B`，逻辑键位置留空。 |
+| `game.mem` | LED `600D` 表示初始化完成。方向键移动、旋转与软降，空格硬降，`P` 暂停或继续，`R` 重开，`ESC` 退出。VGA 显示棋盘、分数、行数、等级与状态。 |
+
+四个入口上电都会检查 `SYS_ID`。LED `E001` 表示读值不符。游戏使用约 60 Hz 的逻辑帧，帧时长按 16、17、17 ms 循环。键盘驱动读状态后才取数据，持续按住控制键只触发一次，方向键每帧取最后一次。控制动作优先并按 FIFO 顺序保留到后续帧。检测到硬件溢出后清除前缀与按键队列，待硬件 FIFO 排空后重新解析。绘制只向显存写发生变化的字符对。
+
+### 回归和行为仿真
+
+沿用构建命令中的变量，先跑软件回归，再用 CPU RTL 加载镜像。`test_diag_mmio` 使用当前寄存器电路。其余三个测试的显存和 FIFO 由 `firmware_tb.sv` 模拟，CPU、执行和访存仍来自团队内核。
+
+```powershell
+$driver = Join-Path $repo 'software/tetris/stage2'
+$driverLog = & $JavaExe '-Djava.awt.headless=true' -jar $RarsJar nc ae1 se2 sm 2000000 `
+    "$driver/test_drivers.s" "$driver/ps2.s" "$driver/video.s"
+$driverExit = $LASTEXITCODE
+$driverLog
+if ($driverExit -ne 0 -or 'PASS: all stage2 driver tests' -notin $driverLog) {
+    throw 'RARS driver regression failed'
+}
+
+$root = Join-Path $repo 'riscv-cpu/riscv-cpu.srcs/sources_1/new'
+$rtl = @(Get-ChildItem -LiteralPath "$root/RiscVCPU", "$root/peripherals" `
+    -Recurse -Filter '*.v' -File | Select-Object -ExpandProperty FullName)
+Push-Location -LiteralPath $runDir
+try {
+    & (Join-Path $VivadoBin 'xvlog.bat') --sv @rtl "$firmware/firmware_tb.sv"
+    if ($LASTEXITCODE -ne 0) { throw 'xvlog failed' }
+    foreach ($test in 'test_diag_mmio','test_diag_vga','test_diag_key','test_game_firmware') {
+        & (Join-Path $VivadoBin 'xelab.bat') --mt off "work.$test" -s $test
+        if ($LASTEXITCODE -ne 0) { throw "xelab failed for $test" }
+        $log = & (Join-Path $VivadoBin 'xsim.bat') $test -runall
+        $exitCode = $LASTEXITCODE
+        $log
+        if ($exitCode -ne 0 -or -not ($log -match '^PASS:') -or ($log -match '^Fatal:')) {
+            throw "Simulation failed for $test"
+        }
+    }
+} finally {
+    Pop-Location
+}
+```
+
+### 上板联调入口
+
+组长接通 VGA 字符帧缓冲和 PS/2 FIFO 后，在 Vivado GUI 的游戏顶层选择 `MEM_FILE`，按上表顺序加载四个镜像并分别综合、生成 bitstream、烧录。当前顶层的 CPU 默认约 50 Hz，游戏配置可以从 `CPU_CLOCK_INTERVAL=25`（按 100 MHz 输入推算为 2 MHz）起测，由组长结合实现时序确认。显存写入的译码应在寄存器和显存间互斥，`sw/sh` 字节使能及 `KEY_DATA` 的单次弹出时序需要在最终 RTL 上复验。
+
 ## 第 1 阶段 RARS 原型
 
 终端版中大写字符表示已锁定的方块，小写字符表示活动方块。输入一个命令后按 Enter。`A/D` 左右移动，`W` 旋转，`S` 软降，`H` 或空格硬降，`P` 暂停或恢复，`R` 重开，`Q` 退出。`T` 或空行让模拟时间前进 100 ms，便于逐步查看重力效果。
@@ -75,8 +141,12 @@ try {
 | 地址范围 | 用途 |
 | --- | --- |
 | `0x0000–0x00FF` | 预留给 10×20 棋盘，每格 1 字节 |
-| `0x0100–0x01FF` | 预留给游戏状态、计时、PS/2 解码状态和软件按键队列 |
-| `0x0200–0x15FF` | 预留给渲染数据，空间可容纳 4800 字节字符缓冲 |
+| `0x0100–0x013B` | 游戏状态和计时 |
+| `0x0140–0x017F` | PS/2 解码状态和软件按键环形缓冲 |
+| `0x0180–0x02DF` | 方块、计分、颜色和文字表 |
+| `0x0300–0x03C7` | 上次绘制的 200 格棋盘 |
+| `0x0400–0x04C7` | 合成后的 200 格待绘棋盘 |
+| `0x04D0–0x04DF` | 分数、行数、等级和模式缓存 |
 | `0x7000–0x7007` | 第 0 阶段 RAM 自检区 |
 | `0x7800–0x7FFF` | 栈区，从初始 `sp=0x8000` 向低地址增长 |
 
