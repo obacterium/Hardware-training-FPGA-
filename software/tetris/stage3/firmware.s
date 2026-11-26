@@ -16,9 +16,9 @@ _start:
     mv a0, s0
     li a1, RAM_TABLES
     lw a3, REG_TICK_MS(s2)
-    # The link address points to the RNG callback trampoline.
+    # The link address points to the piece source selected by the build.
     jal a2, firmware_boot_game
-    j mmio_random_piece
+    j firmware_next_piece
 firmware_boot_game:
     jal ra, game_init_source
     jal ra, render_init

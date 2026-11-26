@@ -29,7 +29,7 @@ render_static_hud:
     li t0, 3
     bltu s0, t0, render_static_hud
     li s0, 17
-    li s1, RAM_LABEL_ARROWS
+    li s1, RAM_LABEL_CONTROLS
 render_help:
     mv a0, s0
     li a1, 32
@@ -37,7 +37,7 @@ render_help:
     jal ra, render_label
     addi s0, s0, 1
     addi s1, s1, 16
-    li t0, 22
+    li t0, 24
     bltu s0, t0, render_help
 
     li t0, RAM_RENDER_CACHE

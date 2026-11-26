@@ -12,7 +12,7 @@
 | 目标板卡 | Digilent **Nexys4 DDR**（XC7A100T-CSG324，100 MHz 主时钟） |
 | 开发环境 | **Vivado 2022.1**（工程文件 `riscv-cpu/riscv-cpu.xpr`） |
 | 处理器 | 32 位 RISC-V，**5 级流水线**（IF/ID/EX/MEM/WB），哈佛结构 |
-| 存储 | 指令 ROM 1024 字、数据 RAM 1024 字，均由 `$readmemh` 从 `.mem` 文件装载 |
+| 存储 | 指令 ROM 4096 字，从 `.mem` 文件装载。数据 RAM 8192 字，游戏由启动代码写入初值 |
 | 调试接口 | 8 位数码管、16 个 LED、5 个按键、16 位拨码开关 |
 | 目录说明 | `riscv-cpu/` 为 Vivado 工程；`Reference/` 为课程参考仓库；`Schematics/` 及两个 PDF 为板卡资料 |
 
@@ -26,7 +26,7 @@ software/tetris/
 ├── stage0/                       # RARS 与 FPGA 启动自检、ROM 导出和仿真测试台
 ├── stage1/                       # 游戏核心、RARS 终端原型和固定输入回归
 ├── stage2/                       # MMIO、PS/2、字符显存驱动和独立自检入口
-└── stage3/                       # 游戏固件、构建入口和 CPU RTL 联调测试台
+└── stage3/                       # 正式与演示固件、构建入口和 CPU RTL 联调测试台
 ```
 
 ```

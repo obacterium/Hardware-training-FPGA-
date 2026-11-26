@@ -4,7 +4,8 @@
 // framebuffer and PS/2 FIFO at the addresses specified in INTERFACE.md.
 module firmware_tb #(
     parameter integer TEST_CASE = 0,
-    parameter IMAGE = "diag_mmio.mem"
+    parameter IMAGE = "diag_mmio.mem",
+    parameter DEMO = 0
 );
     reg clk = 0, rst = 1;
     reg [15:0] switches = 16'h8127;
@@ -37,7 +38,7 @@ module firmware_tb #(
     integer fifo_in = 0, fifo_out = 0, fifo_used = 0;
     reg overflow = 0;
     reg [31:0] tick = 32'hfffffff0;
-    reg [31:0] rng = 1;
+    reg [31:0] rng = DEMO ? 0 : 1;
     wire [7:0] fifo_count = fifo_used;
     wire fifo_empty = fifo_used == 0;
     wire fifo_full = fifo_used == 16;
@@ -114,6 +115,21 @@ module firmware_tb #(
                 fifo_in = (fifo_in + 1) % 16;
                 fifo_used = fifo_used + 1;
             end
+        end
+    endtask
+
+    task automatic expect_label(input integer row, input [127:0] expected);
+        integer index;
+        begin
+            for (index = 0; index < 16; index = index + 1)
+                expect_cell(row, 32 + index, {8'h10, expected[127 - 8 * index -: 8]});
+        end
+    endtask
+
+    task automatic capture_frame(input string filename);
+        begin
+            if (DEMO && $test$plusargs("capture_frames"))
+                $writememh(filename, framebuffer);
         end
     endtask
 
@@ -239,6 +255,14 @@ module firmware_tb #(
                 expect_cell(1, 6, 16'h1046); // FALLING BLOCKS
                 expect_cell(4, 14, 16'h40db); // yellow O at the initial position
                 expect_cell(14, 32, 16'h1050); // PLAYING
+                expect_label(17, "LEFT/RIGHT MOVE ");
+                expect_label(18, "UP ROTATE       ");
+                expect_label(19, "DOWN SOFT DROP  ");
+                expect_label(20, "SPACE HARD DROP ");
+                expect_label(21, "P PAUSE/RESUME  ");
+                expect_label(22, "R RESTART       ");
+                expect_label(23, "ESC EXIT        ");
+                capture_frame("demo-start.hex");
                 direction(8'h6b);
                 if (game_x !== 2 || last_frame_writes != 4) $fatal(1, "LEFT dirty update mismatch");
                 expect_cell(4, 12, 16'h40db);
@@ -277,6 +301,7 @@ module firmware_tb #(
                 expect_cell(6, 39, 16'h1033); // score 0000000300
                 expect_cell(9, 41, 16'h1032); // lines 0000000002
                 expect_cell(23, 6, 16'h0020);
+                capture_frame("demo-clear.hex");
 
                 repeat (10) tap(8'h29);
                 if (game_mode !== 2 || score !== 300) $fatal(1, "Expected top-out after ten pairs");
@@ -284,25 +309,27 @@ module firmware_tb #(
                 expect_cell(4, 14, 16'h40db);
                 rng = 0;
                 tap(8'h2d);
-                if (game_mode !== 0 || score !== 0 || lines !== 0 || piece !== 0)
+                if (game_mode !== 0 || score !== 0 || lines !== 0 || piece !== (DEMO ? 1 : 0))
                     $fatal(1, "Game-over restart or RNG selection failed");
-                direction(8'h75);
-                seed_four_rows();
-                advance_frame(17);
-                tap(8'h29);
-                four_clear_cycles = last_frame_cycles;
-                four_clear_writes = last_frame_writes;
-                if (lines !== 4 || score !== 800) $fatal(1, "Four-line fixture did not clear");
-                expect_cell(6, 39, 16'h1038);
-                expect_cell(9, 41, 16'h1034);
-                expect_cell(23, 6, 16'h40db); // surviving tile shifted down 4 rows
+                if (!DEMO) begin
+                    direction(8'h75);
+                    seed_four_rows();
+                    advance_frame(17);
+                    tap(8'h29);
+                    four_clear_cycles = last_frame_cycles;
+                    four_clear_writes = last_frame_writes;
+                    if (lines !== 4 || score !== 800) $fatal(1, "Four-line fixture did not clear");
+                    expect_cell(6, 39, 16'h1038);
+                    expect_cell(9, 41, 16'h1034);
+                    expect_cell(23, 6, 16'h40db); // surviving tile shifted down 4 rows
+                end
 
                 push_key(8'h76);
                 tick = tick + 17;
                 wait (game_mode == 3 && framebuffer[14 * 80 + 37] == 16'h1044);
                 @(negedge cpu_clock);
                 rst = 1;
-                rng = 1;
+                rng = DEMO ? 0 : 1;
                 repeat (12) @(negedge cpu_clock);
                 if (led !== 0) $fatal(1, "Reset did not clear the MMIO LED");
                 rst = 0;
@@ -311,9 +338,13 @@ module firmware_tb #(
                     $fatal(1, "Reset did not start a clean game");
                 expect_cell(23, 6, 16'h0020);
                 if (max_frame_cycles >= 32000) $fatal(1, "Frame exceeded 16 ms at the proposed 2 MHz clock");
-                $display("PASS: game firmware input, timing wrap, rendering, two/four lines, top-out, restart, exit and reset");
-                $display("METRIC: max_frame_cycles=%0d clear_cycles=%0d clear_writes=%0d four_clear_cycles=%0d four_clear_writes=%0d",
-                    max_frame_cycles, clear_cycles, clear_writes, four_clear_cycles, four_clear_writes);
+                if (DEMO)
+                    $display("PASS: fixed-O demo, control labels, two-line clear, top-out, restart, exit and reset");
+                else begin
+                    $display("PASS: game firmware input, timing wrap, rendering, two/four lines, top-out, restart, exit and reset");
+                    $display("METRIC: max_frame_cycles=%0d clear_cycles=%0d clear_writes=%0d four_clear_cycles=%0d four_clear_writes=%0d",
+                        max_frame_cycles, clear_cycles, clear_writes, four_clear_cycles, four_clear_writes);
+                end
             end
         endcase
         $finish;
@@ -337,4 +368,7 @@ module test_diag_key;
 endmodule
 module test_game_firmware;
     firmware_tb #(.TEST_CASE(3), .IMAGE("game.mem")) testbench();
+endmodule
+module test_game_demo;
+    firmware_tb #(.TEST_CASE(3), .IMAGE("game_demo.mem"), .DEMO(1)) testbench();
 endmodule
