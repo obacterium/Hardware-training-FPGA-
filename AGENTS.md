@@ -13,6 +13,7 @@
    - `verilog/README.md`
    - `verilog/INTERFACE.md`（外设接口约定：MMIO 地址表 / 显存格式 / 键盘队列 / IO 缓冲区，改外设相关代码前必读）
    - `software/tetris/README.md`（游戏软件构建、RAM 布局与仿真步骤，做游戏软件任务时阅读）
+   - `software/tetris/delivery/README.md`（已验证的游戏镜像和交付文档，做上板或交付任务时阅读）
    - 根目录下两个 PDF：
      - `verilog/MIPS_FPGA_guide0.0.0.1.pdf`
      - `verilog/nexys4ddr_rm.pdf`
@@ -104,7 +105,7 @@
 
 5. **工程结构改动后同步文档**：任何对工程目录结构的改动（新增/移动/重命名文件或目录）完成后，必须同步更新 `verilog/README.md` 第二节"工程结构"的目录树、以及本文件（AGENTS.md）第一节必读清单 / 第六节目录结构说明中的相应内容，保证文档与磁盘结构始终一致。
 
-6. **游戏软件**：`software/tetris/stage0/` 放置启动自检和专用仿真测试台。`stage1/` 放置游戏核心、RARS 终端入口和回归。`stage2/` 放置驱动和独立自检，`stage3/` 放置正式与演示固件、ROM 构建和联调测试台。ROM 导出和独立仿真的生成物使用项目目录外的路径。软件测试台通过手工仿真加载。
+6. **游戏软件**：`software/tetris/stage0/` 放置启动自检和专用仿真测试台。`stage1/` 放置游戏核心、RARS 终端入口和回归。`stage2/` 放置驱动和独立自检，`stage3/` 放置正式与演示固件、ROM 构建和联调测试台。ROM 导出和独立仿真的生成物使用项目目录外的路径。`delivery/` 保存已验收的发布镜像和交付文档。软件测试台通过手工仿真加载。
 
 ---
 

@@ -18,7 +18,7 @@
 
 ## 2. 工程结构（RTL 源文件）
 
-游戏软件入口见 [software/tetris/README.md](software/tetris/README.md)。
+游戏软件入口见 [software/tetris/README.md](software/tetris/README.md)。镜像和验收材料见 [C 成员交付](software/tetris/delivery/README.md)。
 
 ```
 software/tetris/
@@ -26,7 +26,8 @@ software/tetris/
 ├── stage0/                       # RARS 与 FPGA 启动自检、ROM 导出和仿真测试台
 ├── stage1/                       # 游戏核心、RARS 终端原型和固定输入回归
 ├── stage2/                       # MMIO、PS/2、字符显存驱动和独立自检入口
-└── stage3/                       # 正式与演示固件、构建入口和 CPU RTL 联调测试台
+├── stage3/                       # 正式与演示固件、构建入口和 CPU RTL 联调测试台
+└── delivery/                     # 已验证镜像、测试报告、演示和上板验收材料
 ```
 
 ```

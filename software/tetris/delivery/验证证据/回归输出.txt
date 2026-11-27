@@ -1,0 +1,37 @@
+2026-11-26 | feature/tetris-sw | 8425e140aa89e5a00b3564e6697a314f41314dd3
+Base RTL ee83409 | RARS f0c874c | Java 8u471 | Vivado Simulator 2018.3
+
+diag_mmio.mem (260 words) 5748D16804D13AD79F5A633A859B30B1EE5C2C9C24C6A74D4DA3DE97B755861A
+diag_vga.mem (281 words) F091D8513DC4A09D7D9EB8879531C83A30E87525E2F5C32FC0BAB42EFA67D4FD
+diag_key.mem (281 words) FDC3931BF7B723E34828D397AFB53E5CE175B6BB1D773456215E3A238A2FB07B
+game.mem (1300 words) E5F4804287288AA2272CD2113554DAA8CC034B27A139429B77885C8AD2A67723
+game_demo.mem (1301 words) 4BFF9DFEC872023BBA75B22CAC08C152CED4C1CFFA351C6094EF34D161BDBE0D
+PASS: repeated ROM builds match
+PASS: seven pieces and all four orientations
+PASS: walls, stacks and rejected rotations
+PASS: gravity, soft drop and timer wrap
+PASS: floor lock, stacked lock and hard drop
+PASS: single to four lines and separated full rows
+PASS: level changes, previous-level score and minimum interval
+PASS: pause, resume, restart and exit
+PASS: complete replay with a double clear and top-out
+PASS: all stage1 game tests
+PASS: PS/2 split prefixes and break filtering
+PASS: PS/2 last direction and control queue
+PASS: PS/2 repeat, wrap and overflow recovery
+PASS: VGA address, halfword ordering and hex rendering
+PASS: all stage2 driver tests
+
+PASS: diag_mmio SYS_ID, switches, SEG7 pattern and real TICK_MS
+PASS: diag_vga pair order, isolated SH, cross-row and final cell
+PASS: diag_key raw make/break, one pop per LW, overflow read-clear and resync
+PASS: game firmware input, timing wrap, rendering, two/four lines, top-out, restart, exit and reset
+METRIC: max_frame_cycles=15026 clear_cycles=9116 clear_writes=34 four_clear_cycles=9442 four_clear_writes=84
+PASS: fixed-O demo, control labels, two-line clear, top-out, restart, exit and reset
+PASS: bundle imported into an independent repository with the ee83409 base
+
+PASS: stage0 RAM probe (RARS)
+stage0.mem (35 words) 672D46371F5152F70F3FB9C88F0EEF5B626E9FE3B9C0D2BBF5CC9EA81E340B65
+PASS: first fetch PC=00000000 IR=00008137
+PASS: first writeback PC=00000000 x2=00008000
+PASS: stage0 RTL LED=600d (RAM probe and SYS_ID)
